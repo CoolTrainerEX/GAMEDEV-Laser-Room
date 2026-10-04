@@ -27,6 +27,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d0a5c75f5cd6c3f4187503a198bdbb8e, type: 3}
   - {fileID: 8300000, guid: aef4edcbb02e6fe478de989224dc7782, type: 3}
   - {fileID: 8300000, guid: ecaaa8e5fc1c386438858b7da9ebbc68, type: 3}
+  damageSounds:
+  - {fileID: 8300000, guid: c4f16d5d7d0657b4197cf0049e35c14c, type: 3}
+  - {fileID: 8300000, guid: 47b5a26876c4e014c9188d5f3998b8fc, type: 3}
+  - {fileID: 8300000, guid: 21c47edc3044c2246a7a82be0c13382e, type: 3}
+  healSounds:
+  - {fileID: 8300000, guid: 8f2000d115b3dde4fb0e855efdd3ad88, type: 3}
   footThreshold: 0.2
   moveSpeed: 2
   crouchMultiplier: 0.5
@@ -35,3 +41,4 @@ MonoBehaviour:
   crouchSpeed: 2
   rotationSpeed: 100
   yGroundVelocity: -1
+  maxHealth: 100

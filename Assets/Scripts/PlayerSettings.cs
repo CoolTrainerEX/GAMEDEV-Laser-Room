@@ -10,6 +10,8 @@ public class PlayerSettings : ScriptableObject
     [Header("Audio")]
     [SerializeField] public Dictionary<string, List<AudioClip>> walkSounds;
     public List<AudioClip> jumpSounds;
+    public List<AudioClip> damageSounds;
+    public List<AudioClip> healSounds;
     [Min(0)] public float footThreshold = 0.2f;
 
     [Header("Movement")]
@@ -20,4 +22,7 @@ public class PlayerSettings : ScriptableObject
     [Min(0)] public float crouchSpeed = 2;
     [Min(0)] public float rotationSpeed = 100;
     public float yGroundVelocity = -1;
+
+    [Header("Stats")]
+    [Min(0)] public float maxHealth = 100;
 }
