@@ -5,6 +5,8 @@ public class GameSettings : ScriptableObject
 {
     [Header("Buff")]
     [Min(0)] public float buffHeal = 10;
+    [Min(0)] public float buffPeriod = 1;
+    [Min(0)] public float buffTimes = 4;
 
     [Header("Laser")]
     [Min(0)] public float laserDamage = 20;

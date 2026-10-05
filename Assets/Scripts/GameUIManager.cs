@@ -8,17 +8,25 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private PlayerSettings playerSettings;
     [SerializeField] private PlayerStats playerStats;
 
+    private PanelRenderer panelRenderer;
     private VisualElement healthElement;
     private int uiVersion = -1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Start()
+    void Start()
     {
-        GetComponent<PanelRenderer>().RegisterUIReloadCallback(OnUIReload);
+        panelRenderer = GetComponent<PanelRenderer>();
+
+        panelRenderer.RegisterUIReloadCallback(OnUIReload);
+    }
+
+    void OnDestroy()
+    {
+        panelRenderer.UnregisterUIReloadCallback(OnUIReload);
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         if (healthElement != null) healthElement.style.width = Length.Percent(Mathf.MoveTowards(healthElement.style.width.value.value, playerStats.Health / playerSettings.maxHealth * 100, settings.transitionSpeed * Time.deltaTime));
     }

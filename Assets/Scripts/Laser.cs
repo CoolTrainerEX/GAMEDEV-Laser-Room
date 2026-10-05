@@ -7,7 +7,7 @@ public class Laser : MonoBehaviour
     public Transform Target { private get; set; }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         if (Target == null) return;
 

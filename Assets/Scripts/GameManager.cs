@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,47 +7,67 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameSettings settings;
     [SerializeField] private AudioSource audio;
     [SerializeField] private PlayerStats playerStats;
-    [SerializeField] private LaserEmitter laserEmitter;
     [SerializeField] private Buff buff;
     [SerializeField] private List<Transform> buffPositions;
 
-    private bool _active = false;
+    public bool IsActive { get; private set; } = false;
+    public event Action<bool> Active;
 
-    public bool Active
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        get => _active;
-        private set
-        {
-            _active = value;
-            laserEmitter.Active = value;
-
-            if (value) foreach (var transform in buffPositions) Instantiate(buff).transform.SetPositionAndRotation(transform.position, transform.rotation);
-            else
-            {
-                playerStats.Respawn();
-
-                foreach (var gameObject in GameObject.FindGameObjectsWithTag("Game"))
-                    Destroy(gameObject);
-            }
-        }
+        Active += OnActive;
     }
 
-    public void Activate()
+    void OnDestroy()
     {
-        Active = true;
+        Active -= OnActive;
     }
 
-    public void Win()
+    private void OnActive(bool active)
     {
-        Active = false;
+        IsActive = active;
 
-        audio.PlayOneShot(settings.winSound);
+        if (active)
+            foreach (var transform in buffPositions) Instantiate(buff).transform.SetPositionAndRotation(transform.position, transform.rotation);
+        else
+            foreach (var gameObject in GameObject.FindGameObjectsWithTag("Game")) Destroy(gameObject);
     }
 
-    public void Lose()
+    private bool Deactivate()
     {
-        Active = false;
+        if (!IsActive) return false;
 
-        audio.PlayOneShot(settings.loseSound);
+        Active?.Invoke(false);
+
+        return true;
+    }
+
+    public bool Activate()
+    {
+        if (IsActive) return false;
+
+        Active?.Invoke(true);
+
+        return true;
+    }
+
+
+    public bool Win()
+    {
+        var success = Deactivate();
+
+        if (success) audio.PlayOneShot(settings.winSound);
+
+        return success;
+    }
+
+    public bool Lose()
+    {
+        var success = Deactivate();
+
+        if (success) audio.PlayOneShot(settings.loseSound);
+
+        return success;
     }
 }

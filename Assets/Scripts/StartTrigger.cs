@@ -8,16 +8,13 @@ public class StartTrigger : MonoBehaviour
     private AudioSource audio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Start()
+    void Start()
     {
         audio = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") || manager.Active) return;
-
-        manager.Activate();
-        audio.Play();
+        if (other.CompareTag("Player") && manager.Activate()) audio.Play();
     }
 }

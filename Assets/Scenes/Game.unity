@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaserEmitter
   settings: {fileID: 11400000, guid: 84e2e35c8d7ca0541b57eccfd538db6f, type: 2}
+  manager: {fileID: 889961551}
   target: {fileID: 364812240}
   laser: {fileID: 4194280858308513476, guid: f543adef9d0771244b6849cf3c3e7ec1, type: 3}
 --- !u!4 &15682153
@@ -2635,7 +2636,6 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: 84e2e35c8d7ca0541b57eccfd538db6f, type: 2}
   audio: {fileID: 80824818}
   playerStats: {fileID: 2023851878}
-  laserEmitter: {fileID: 15682152}
   buff: {fileID: 3811907983503247959, guid: 80dafd24d34070346a6f00fac953e5f3, type: 3}
   buffPositions:
   - {fileID: 910142962}
@@ -6833,6 +6833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   settings: {fileID: 11400000, guid: 8485fbc842d664542ad81f63839b4563, type: 2}
+  gameSettings: {fileID: 11400000, guid: 84e2e35c8d7ca0541b57eccfd538db6f, type: 2}
   manager: {fileID: 889961551}
   spawn: {fileID: 1824979955}
 --- !u!43 &2030871913

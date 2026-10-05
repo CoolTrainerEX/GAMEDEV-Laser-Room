@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAudio))]
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private PlayerSettings settings;
+    [SerializeField] private GameSettings gameSettings;
     [SerializeField] private GameManager manager;
     [SerializeField] private Transform spawn;
 
@@ -15,7 +17,19 @@ public class PlayerStats : MonoBehaviour
     {
         audio = GetComponent<PlayerAudio>();
 
+        manager.Active += OnActive;
+
         Respawn();
+    }
+
+    void OnDestroy()
+    {
+        manager.Active -= OnActive;
+    }
+
+    private void OnActive(bool active)
+    {
+        if (!active) Respawn();
     }
 
     public void Respawn()
@@ -32,5 +46,22 @@ public class PlayerStats : MonoBehaviour
         else audio.Damage();
 
         if (Health <= 0) manager.Lose();
+    }
+
+    public void Buff()
+    {
+        StartCoroutine(BuffLoop());
+    }
+
+    private IEnumerator BuffLoop()
+    {
+        WaitForSeconds waitForSeconds = new(gameSettings.buffPeriod);
+
+        for (int i = 0; i < gameSettings.buffTimes; i++)
+        {
+            AddHealth(gameSettings.buffHeal);
+
+            yield return waitForSeconds;
+        }
     }
 }
